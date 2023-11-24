@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title> 
+    <link rel="stylesheet" href="/user_assets/css/style2.css">
+    <link href="/user_assets/Images/FAVICON.ico" rel="icon">
+ 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+    <%-include('../../partials/userheader') %>
+
+    <div class="containerr mt-5 p-5">
+
+        <div class="login-container">
+
+            <h1>Login</h1>
+            <form action="/homepage" method="POST">
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Email" value="yyyyedu@gmail.com" required>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Password" value="123456" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <a href="/confirmemail">Forgot Password?</a>
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+        </div>
+    </div>
+ 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          
+            if ('<%= msg %>' != '') {
+            const errorMessage = '<%= msg %>'; // Assuming 'msg' is the variable from the server
+
+            if (errorMessage) {
+                Toastify({
+                    text: errorMessage,
+                    duration: 4000, // Duration in milliseconds (adjust as needed)
+                    gravity: 'top', // Position: 'top', 'bottom', 'center'
+                    position: 'left', // Alignment: 'left', 'right', 'center'
+                    backgroundColor: 'red', // Background color
+                    stopOnFocus: true, // Stops the toast when focused
+                    style: {
+                        // Adjust the font size and padding to increase toast size
+                        fontSize: '20px', // Increase the font size
+                        padding: '30px' // Increase padding for height and width
+                        
+                    }
+                }).showToast();
+            }
+        }
+        });
+    </script>
+ 
+ 
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wallet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Your custom styles -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+          }
+        .wallet-icon {
+            font-size: 6rem;
+            color:red; /* or your preferred color */
+        }
+    </style>
+</head>
+<%-include('../../partials/userheader') %>
+
+<body>
+    <div class="container mt-5 mb-5 ">
+        <div class="row">
+           
+            <div class="col-lg-6 mb-5 mt-5 ">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-wallet wallet-icon"></i><h3>Your Amount
+                    </div>
+                    <div class="card-body">
+                        <!-- <h3>$1,000</h3> -->
+                        <h3> ₹ <%= wallet.Wallet %></h3>
+
+                        <!-- Your other wallet information -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-include('../../partials/userfooter')  %>
+
+
+    <!-- Font Awesome for the wallet icon -->
+    <script src="https://kit.fontawesome.com/yourFontAwesomeKit.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

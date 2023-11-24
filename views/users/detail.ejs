@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>YKENzz Football Accessories</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="/user_assets/Images/FAVICON.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/user_assets/css/style.css" rel="stylesheet">
+    </head>
+
+<body>
+    <!-- Topbar Start -->
+    <%-include('../../partials/userheader') %>
+
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+   
+    <!-- Page Header End -->
+
+
+    <!-- Shop Detail Start -->
+    <!-- <style>
+        .zoom-lens img {
+          transition: transform 0.3s;
+        }
+      
+        .zoom-lens img:hover {
+          transform: scale(1.5); /* You can adjust the scale factor as needed */
+        }
+      </style> -->
+
+      <style>
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #zoom-image {
+            width: 100%;
+            cursor: crosshair;
+            transition: transform 0.3s ease;
+        }
+        
+        .zoom-image-container {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .zoom-image-container img {
+            width: 100%;
+            height: auto;
+            cursor: crosshair;
+            transition: transform 0.3s ease;
+        }
+        
+        
+        
+        </style>
+      
+    <div class="container-fluid py-5 ">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 pb-5 product-image">
+                <div id="product-carousel" class="carousel slide " data-ride="carousel">
+                    <div class="carousel-inner  ">
+                        <div class="carousel-item active zoom-image">
+                            <img class="w-100 h-100"   src="/admin_assets/uploads/<%=productData.prdctimage[0]%>" alt="Image">
+                        </div>
+                        <% for (let i=1;i<productData.prdctimage.length;i++){ %>
+                            <div class="carousel-item zoom-image">
+                                <img class="w-100 h-100"   src="/admin_assets/uploads/<%=productData.prdctimage[i]%>" alt="Image">
+                            </div>
+                            <% } %>
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 pb-5">
+                <h3 class="font-weight-semi-bold"><%= productData.prdctname %></h3>
+                <div class="d-flex mb-3">
+                    <div class="text-primary mr-2">
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star-half-alt"></small>
+                        <small class="far fa-star"></small>
+                    </div>
+                    <small class="pt-1">(50 Reviews)</small>
+                </div>
+                <h3 class="font-weight-semi-bold mb-4">₹<%= productData.prdctprice  %></h3>
+                <p class="mb-4"><%= productData.prdctdescription %></p>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
+                    <form>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="size-1" name="size">
+                            <label class="custom-control-label" for="size-1">XS</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="size-2" name="size">
+                            <label class="custom-control-label" for="size-2">S</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="size-3" name="size">
+                            <label class="custom-control-label" for="size-3">M</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="size-4" name="size">
+                            <label class="custom-control-label" for="size-4">L</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="size-5" name="size">
+                            <label class="custom-control-label" for="size-5">XL</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="d-flex mb-4">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
+                    <form>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="color-1" name="color">
+                            <label class="custom-control-label" for="color-1">Black</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="color-2" name="color">
+                            <label class="custom-control-label" for="color-2">White</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="color-3" name="color">
+                            <label class="custom-control-label" for="color-3">Red</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="color-4" name="color">
+                            <label class="custom-control-label" for="color-4">Blue</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="color-5" name="color">
+                            <label class="custom-control-label" for="color-5">Green</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="d-flex align-items-center mb-4 pt-5">
+ 
+    
+                        <% if((cproduct[0] && cproduct[0].cart_items.quantity >= productData.prdctstock) || productData.prdctstock == 0 ){ %>
+                         
+                         <button  class="btn btn-primary px-3" onclick="return stock()">
+                            <i class="fa fa-shopping-cart mr-1"></i> STOKE IS EMPTY
+                        </button>
+                        <% }else{ %>
+                            <a href="/addtocart/?id=<%= productData._id  %>"><button class="btn btn-primary px-3" onclick="checked()">
+                                <i class="fa fa-shopping-cart mr-1"></i> Add To Cart
+                            </button></a>
+                            <% } %>
+               
+                    
+                </div>
+                <div class="d-flex pt-2">
+                    <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
+                    <div class="d-inline-flex">
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="nav nav-tabs justify-content-center border-secondary mb-4">
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-pane-1">
+                        <h4 class="mb-3">Product Description</h4>
+                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
+                        <p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit rebum. Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna et.</p>
+                    </div>
+                    <div class="tab-pane fade" id="tab-pane-2">
+                        <h4 class="mb-3">Additional Information</h4>
+                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item px-0">
+                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                    </li>
+                                  </ul> 
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item px-0">
+                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                    </li>
+                                  </ul> 
+                            </div>
+                        </div>
+                    </div>
+
+
+ 
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+
+    <!-- Footer Start -->
+    <%-include('../../partials/userfooter')  %>
+
+    <!-- Footer End -->
+ 
+      <script src="script.js"></script>
+        <script>
+const zoomImages = document.querySelectorAll(".zoom-image");
+
+zoomImages.forEach((image) => {
+    image.addEventListener("mousemove", function (event) {
+        const container = image.parentElement;
+        const rect = container.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        image.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+        image.style.transform = "scale(2)";
+    });
+
+    image.addEventListener("mouseleave", function () {
+        image.style.transform = "scale(1)";
+    });
+});
+
+        </script>
+      
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/user_assets/lib/easing/easing.min.js"></script>
+    <script src="/user_assets/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/user_assets/https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/user_assets/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/user_assets/mail/contact.js"></script>
+/user_assets
+    <!-- Template  Javascript -->
+    <script src="/user_assets/js/main.js"></script>
+    <script>
+        
+        function checked() {
+            swal.fire({
+                text: "Your product has been added to cart.",
+                icon: "success",
+                timer: 9999999, // Set a large timer value to keep it open until manually closed
+            });
+        }
+    </script>
+        <script>
+            function stock() {
+                 Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Product out of Stock!!!",
+               });
+                return false
+            }
+        </script>
+
+
+ 
+
+
+
+</body>
+
+</html>

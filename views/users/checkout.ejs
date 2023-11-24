@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>YKENzz Football Accessories</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+ 
+
+
+    <!-- Favicon -->
+    <link href="/user_assets/Images/FAVICON.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/user_assets/css/style.css" rel="stylesheet">
+
+ 
+
+
+
+</head>
+
+<body>
+    <!-- Topbar Start -->
+   
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+ 
+    <!-- Navbar End -->
+    <%-include('../../partials/userheader') %>
+    <% if (cart && cart[0] && cart[0].cart_items && cart[0].cart_items.length > 0) { %>
+
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5" style="background-image: url(/user_assets/images/chekout.jpg);">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3 " style="color: gold;">Checkout</h1>
+            <div class="d-inline-flex">
+                 
+                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0 " style="color: greenyellow;">Checkout</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid pt-5 ">
+        <div class="row px-xl-5">
+            <% if(address){ %>
+            <div class="col-lg-8">
+                <div class="mb-5 ">
+                    <form>
+                        <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                        <% for (let i = 0; i <address.addresses.length; i++) { %>   
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <!-- Radio button for selecting the address -->
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="aabb" id="address<%= i %>" required name="selectedAddress" value="<%= address.addresses[i]._id %>" <% if (i === 0) { %>checked<% } %>  >
+                                    <label class="custom-control-label" for="address<%= i %>">Use this address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>First Name</label>
+                                <input class="form-control" type="text" placeholder="John" value="<%= address.addresses[i].firstname  %> " name="fname">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Last Name</label>
+                                <input class="form-control" type="text" placeholder="Doe" value="<%= address.addresses[i].lastname  %>" name="lname">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" placeholder="+123 456 789" value="<%= address.addresses[i].mobilenumber %>" name="mnumber">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" placeholder="New York" value="<%= address.addresses[i].locality %>" name="City">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>State</label>
+                                <input class="form-control" type="text" placeholder="New York" value="<%= address.addresses[i].state %>" name="state">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>PIN Code</label>
+                                <input class="form-control" type="text" placeholder="123" value="<%= address.addresses[i].pincode %>" name="pin">
+                            </div>
+                          
+                        </div>
+                         <% } %>
+                    </form>
+                </div>
+            </div>
+            <% }else{ %>
+            <div class="col-lg-8">
+                <div class="mb-5 ">
+                     <div class="row">
+                        <div class="col-md-8 mb-4">
+                          <div class="card mb-4">
+                            <div class="card-header py-3">
+                              <h5 class="mb-0">Biling Address</h5>
+                            </div>
+                            <div class="card-body">
+                                <form action="/newaddress" method="post" onsubmit="validateForm(event)">
+                                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                                    <div class="row mb-4">
+                                      <div class="col">
+                                        <div class="form-outline">
+                                          <input type="text" id="form7Example1" class="form-control" name="fname" />
+                                          <label class="form-label" for="form7Example1">First name</label>
+                                          <p class="error-message text-danger" id="fnameError"></p>
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="form-outline">
+                                          <input type="text" id="form7Example2" class="form-control" name="lname"/>
+                                          <label class="form-label" for="form7Example2">Last name</label>
+                                          <p class="error-message text-danger" id="lnameError"></p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                
+                                    <!-- Text input -->
+                                    <div class="form-outline mb-4">
+                                      <input type="number" id="form7Example3" class="form-control" name="mnumber"/>
+                                      <label class="form-label" for="form7Example3">Mobile number</label>
+                                      <p class="error-message text-danger" id="mnumberError"></p>
+                                    </div>
+                                
+                                    <!-- Text input -->
+                                    <div class="form-outline mb-4">
+                                      <input type="text" id="form7Example4" class="form-control" name="locality"/>
+                                      <label class="form-label" for="form7Example4">Locality</label>
+                                      <p class="error-message text-danger" id="localityError"></p>
+                                    </div>
+                                
+                                    <!-- Email input -->
+                                    <div class="form-outline mb-4">
+                                      <input type="text" id="form7Example5" class="form-control" name="state" />
+                                      <label class="form-label" for="form7Example5">State</label>
+                                      <p class="error-message text-danger" id="stateError"></p>
+                                    </div>
+                                
+                                    <!-- Number input -->
+                                    <div class="form-outline mb-4">
+                                      <input type="number" id="form7Example6" class="form-control" name="pin" />
+                                      <label class="form-label" for="form7Example6">PIN Code</label>
+                                      <p class="error-message text-danger" id="pinError"></p>
+                                    </div>
+                                
+                                    <!-- Message input -->
+                                
+                                    <button type="submit" class="btn btn-success" onclick="checked()">Create Address</button>
+                                
+                                    <!-- Checkbox -->
+                                
+                                  </form>
+                            </div>
+                          </div>
+                        </div>
+                      
+ 
+                      </div>
+ 
+                    </div>                        
+                    </div>
+            <% } %>
+            <div class="col-lg-4">
+                <form class="mb-5" action="/applycoupon" method="post">
+                    <% if (status == false) {%>
+                    <div class="input-group">
+                        <input type="text" class="form-control p-4" placeholder="Coupon Code" name="couponcode">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary">Apply Coupon</button>
+                        </div>
+                    </div>
+                    <% } %>
+                </form>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                    </div>
+                    <div class="card-body">
+                        
+
+                        <h5 class="font-weight-medium mb-3">Products</h5>
+                        <% for(let i=0;i<cart[0].cart_items.length;i++){ %>
+                        <div class="d-flex justify-content-between">
+                            <p><%= cart[0].cart_items[i].product_name  %></p><p><%= cart[0].cart_items[i].quantity   %></p>
+                            <p>₹<%= cart[0].cart_items[i].quantity*cart[0].cart_items[i].product_price  %></p>
+                        </div>
+                        <% } %> 
+                        <% let totalAmount = 0 %>
+                        <% let shipping = 500 %>
+                       
+                        <hr class="mt-0">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <% for(let i=0;i<cart[0].cart_items.length;i++){ %>
+                                <% const item = cart[0].cart_items[i]; %>
+                                <%     totalAmount += item.quantity * item.product_price;%>
+                                <% } %>
+                                <% let Total = totalAmount+shipping %>
+                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium">₹ <%= totalAmount  %></h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">₹ <%= shipping  %></h6>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold">₹<%= total  %></h5>
+                        </div>
+                    </div>
+                </div>
+                <form action="/placeorder" method="post">
+                    <div class="card border-secondary mb-5">
+                        <div class="card-header bg-secondary border-0">
+                            <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="payment" id="paypal" value="Razorpay" required>
+                                    <label class="custom-control-label" for="paypal">Razorpay</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="payment" id="directcheck" value="Cod" required>
+                                    <label class="custom-control-label" for="directcheck">Cash On Delivery</label>
+                                </div>
+                            </div>
+ 
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <a class="trigger-btn" > <a class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" id="placeOrderBtn" onclick="placeorder()">Place Order</a></a>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+
+    <!-- Footer Start -->
+    <%-include('../../partials/userfooter')  %>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    
+
+
+ 
+
+    <script>
+        function verifyPayment(response, order) {
+        $.ajax({
+            url: '/verify-payment',
+            method: 'post',
+            data: {
+                response,
+                order
+            },
+            success: (response) => {
+                if (response) {
+                    location.href = '/thankyou';   
+                 } else {
+                    Swal.fire("PAYMENT ERROR!", "Something wrong occured while processing the payment.", "error");
+                }
+            }
+        })
+    }
+
+
+
+        function placeorder(){
+            let payment = $('.custom-control-input:checked').val()
+             if (typeof(payment) == 'undefined') {
+                Swal.fire(
+                 'Payment Method?',
+                 'Please Choose any Payment Method?',
+                 'question'
+               )
+             } 
+            else {
+            let total  = '<%- total%>'
+
+             let addres = $('.aabb:checked').val()
+            console.log(addres);
+               $.ajax({
+                url:'/placeorder',
+                method:'post',
+                data:{
+                    payment,
+                    total ,
+                    addres  
+                },
+                success:(response)=>{
+                    if(response.cod){
+                        location.href = '/thankyou';
+                    }
+                    if(response.razorpay){
+                        console.log(response.order.id)
+                         var options = {
+                        "key": "rzp_test_rq3snpUgN7rtBl", // Enter the Key ID generated from the Dashboard
+                        "amount": response.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                        "currency": "INR",
+                        // "name": "CYCLE SHOP",
+                        "name": "Y KENZZ",
+
+                        "description": "Test Transaction",
+                        "image": "http://localhost:3000/images/logo.png",
+                        "order_id": response.order.id,//This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                        "handler": function (response) {
+                            verifyPayment(response, response.order);
+                        },
+                        "prefill": {
+                            "name": "Y KENZZ",
+                            "email": "ykenzz@gmail.com",
+                            "contact": "8089568695"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#3399cc"
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.open();
+
+                    }
+                     
+                    
+                }
+            })
+        }
+
+        }
+    </script>
+ 
+    <% }else{ %>
+        <div class="container mb-5">
+        <div class="container" >
+           <div class="img-container d-flex justify-content-center align-items-center mt-3 ">
+             <img src="https://www.labsolutions-eg.com/resources/assets/front/images/cartempty.png" alt=""
+               class="img-fluid" width="300px" height="300px">
+           </div>
+         </div>
+         <p class="text-muted mt-5 text-center" style="margin-left: 50px;">you dont have any items in the checkout...Shop Now</p>
+         <div class="no-item d-flex justify-content-center" style="margin-left: 50px;">
+           <a href="/shop"><button type="button" class="btn btn-success">Shop Now</button></a>
+          </div>    
+        </div>
+        <% } %>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script>
+        function validateForm(event) {
+          // Reset previous error messages
+          resetErrorMessages();
+    
+          // Validation for First Name
+          var firstName = document.querySelector('[name="fname"]').value;
+          if (firstName.trim() === '') {
+            displayErrorMessage('fnameError', 'First name cannot be empty');
+            event.preventDefault();
+            return;
+          }
+    
+          // Validation for Last Name
+          var lastName = document.querySelector('[name="lname"]').value;
+          if (lastName.trim() === '') {
+            displayErrorMessage('lnameError', 'Last name cannot be empty');
+            event.preventDefault();
+            return;
+          }
+    
+          // Validation for Mobile Number
+          var mobileNumber = document.querySelector('[name="mnumber"]').value;
+          if (mobileNumber.length !== 10 || isNaN(mobileNumber)) {
+            displayErrorMessage('mnumberError', 'Mobile number must be a 10-digit number');
+            event.preventDefault();
+            return;
+          }
+    
+          // Validation for Locality
+          var locality = document.querySelector('[name="locality"]').value;
+          if (locality.trim() === '') {
+            displayErrorMessage('localityError', 'Locality cannot be empty');
+            event.preventDefault();
+            return;
+          }
+    
+          // Validation for State
+          var state = document.querySelector('[name="state"]').value;
+          if (state.trim() === '') {
+            displayErrorMessage('stateError', 'State cannot be empty');
+            event.preventDefault();
+            return;
+          }
+    
+          // Validation for PIN Code
+          var pinCode = document.querySelector('[name="pin"]').value;
+          if (pinCode.length !== 6 || isNaN(pinCode)) {
+            displayErrorMessage('pinError', 'PIN code must be a 6-digit number');
+            event.preventDefault();
+            return;
+          }
+        }
+    
+        function displayErrorMessage(elementId, message) {
+          var errorElement = document.getElementById(elementId);
+          errorElement.textContent = message;
+        }
+    
+        function resetErrorMessages() {
+          var errorElements = document.querySelectorAll('.error-message');
+          errorElements.forEach(function (element) {
+            element.textContent = '';
+          });
+        }
+      </script>
+    
+    </body>
+    </html>
+    Now, each form field has an associated <p> tag for displaying error messages dynamically. The JavaScript function validateForm is called on form submission, and it handles the validation and error message display.
+    
+    
+    
+    
+    
+    <script>
+                function checked() {
+            swal.fire({
+                text: "Your product has been added to cart.",
+                icon: "success",
+                timer: 9999999, // Set a large timer value to keep it open until manually closed
+            });
+        }
+    </script>
+    <!-- Your other HTML content -->
+ 
+
+<script src="/user_assets/https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/user_assets/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/user_assetsmail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/user_assets/js/main.js"></script>
+</body>
+
+</html>

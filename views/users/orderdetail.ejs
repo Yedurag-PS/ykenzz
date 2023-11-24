@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+ 
+    <link href="/user_assets/Images/FAVICON.ico" rel="icon">
+    <!-- Template CSS -->
+    <link href="/admin_assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <%-include('../../partials/userheader') %>
+
+    <div class="screen-overlay"></div>
+    
+
+
+
+
+
+          
+        <section class="content-main"  >
+            <div class="content-header"  >
+                <div>
+                    <h2 class="content-title card-title">Order Details</h2>
+                    <p> USER ID :<%= order.user_id  %></p>
+                </div>
+            </div>
+            <div class="card">
+                 <!-- card-header end// -->
+                <div class="card-body">
+                    <div class="row mb-50 mt-20 order-info-wrap">
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-person"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Customer</h6>
+                                    <p class="mb-1">
+                                        <%= order.user_name  %> <br> <template class="__cf_email__" data-cfemail="e2838e879aa2879a838f928e87cc818d8f">[email&#160;protected]</template> <br> 
+                                    </p>
+                                 </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-local_shipping"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Order info</h6>
+                                    <p class="mb-1">
+                                         Order ID : <%= order._id %><br> Pay method: <%= order.payment_type  %> <br> Status: <%= order.delevery_status  %>
+                                    </p>
+                                    <!-- <a href="#">Download info</a> -->
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-place"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Deliver to</h6>
+                                    <p class="mb-1">
+                                        <!-- City: Tashkent, Uzbekistan <br>Block A, House 123, Floor 2 <br> Po Box 10000 -->
+                                        <% order.order_address.forEach(function(address) { %>
+                                            City: <%= address.addresses.locality %>, <%= address.addresses.state %><br>
+                                            Pincode: <%= address.addresses.pincode %><br>
+                                            First Name: <%= address.addresses.firstname %><br>
+                                            Last Name: <%= address.addresses.lastname %><br>
+                                            Mobile Number: <%= address.addresses.mobilenumber %><br>
+                                        <% }); %>
+                                    </p>
+                                 </div>
+                            </article>
+                        </div> <!-- col// -->
+                    </div> <!-- row // -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="40%">Product</th>
+                                            <th width="20%">Unit Price</th>
+                                            <th width="20%">Quantity</th>
+                                            <th width="20%" class="text-end">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% order.product_details.forEach(function(product) { %>
+                                         <tr>
+                                       
+
+                                            <td>
+                                                <a class="itemside" href="#">
+                                                    <div class="left">
+                                                        <img src="/admin_assets/uploads/<%= product.product_image  %>" width="40" height="40" class="img-xs" alt="Item">
+                                                    </div>
+                                                    <div class="info"> <%= product.product_name %> </div>
+                                                </a>
+                                            </td>
+                                            <td> <%= product.product_price %></td>
+                                            <td> <%= product.quantity %> </td>
+                                            <td class="text-end"> <%= product.product_price * product.quantity %> </td>
+                                           
+                                        </tr>
+                                        <% }); %>
+
+                                        <% let subtotal = 0; %>
+                                        <% let shipping = 500 %>
+
+                                        <% order.product_details.forEach(function(product) { %>
+                                       <% subtotal += product.product_price * product.quantity; %>
+                                       <% }); %>
+                                        <tr>
+                                            <td colspan="4">
+                                                <article class="float-end">
+                                                    <dl class="dlist">
+                                                     
+                                                        <dt>Subtotal:</dt>
+                                                        <dd> <%= subtotal  %></dd>
+                                                    </dl>
+                                                    <dl class="dlist">
+                                                        <dt>Shipping cost:</dt>
+                                                        <dd> <%=shipping %></dd>
+                                                    </dl>
+                                                    <% let grandtotal =  subtotal + shipping  %>
+
+                                                    <dl class="dlist">
+                                                        <dt>Payment:</dt>
+                                                        <dd> <b class="h5"> <%= order.total_price %></b> </dd>
+                                                    </dl>
+                                                    <dl class="dlist">
+                                                        <dt class="text-muted">Status:</dt>
+                                                        <dd>
+                                                            <span class="badge rounded-pill alert-success text-success"><%= order.delevery_status %></span>
+                                                        </dd>
+                                                    </dl>
+                                                </article>
+                                               <a href="/invoice?orderId=<%=order.id %>"> <button class="btn btn-success" > INVOICE </button></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- table-responsive// -->
+                        </div> <!-- col// -->
+            <!-- col// -->
+                    </div>
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Evara - HTML Ecommerce Template .
+                </div>
+ 
+            </div>
+        </footer>
+     <script src="/admin_assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="/admin_assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/admin_assets/js/vendors/select2.min.js"></script>
+    <script src="/admin_assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="/admin_assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="/admin_assets/js/main.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <%-include('../../partials/userfooter')  %>
+    <script>
+        function download() {
+            var element = document.body; // Select the entire page
+           
+        
+            let randomNumber = Math.floor(Math.random() * (10000000000 - 1)) + 1;
+        
+            setTimeout(function () {
+                var opt = {
+                    margin: 0,
+                    filename: 'Invoice' + randomNumber + '.pdf',
+                    html2canvas: { scale: 3 }, // Adjust the scale as needed
+                    jsPDF: { unit: 'in', format: [20, 15], orientation: 'portrait' } // Set custom page size
+                };
+        
+                html2pdf().set(opt).from(element).save();
+            }, 1000); // Adjust the delay as needed
+        }
+        </script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-orders-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:22 GMT -->
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Sign up</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="/user_assets/Images/FAVICON.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/user_assets/css/style2.css" rel="stylesheet">
+</head>
+
+<body>
+    <%-include('../../partials/userheader') %>
+
+    <div class="containerr ">
+        <div class="signup-container">
+            <h1>Sign Up</h1>
+            <form action="/verifyvalidation" method="POST" onsubmit="return validation()">
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" placeholder="Your Name" id="username" required>
+                     <p id="username_error" class="error-message text-danger"></p>
+
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Your Email" id="email" required> 
+                      <p                      id="email_error" class="error-message text-danger" 
+                      ></p>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-phone"></i>
+                    <div class="input-group">
+                        <select class="form-control" id="country_code" name="country_code" required>
+                            <option value="+1">+1 (United States)</option>
+                            <option value="+91">+91 (India)</option>
+                            <option value="+44">+44 (United Kingdom)</option>
+                            <option value="+61">+61 (Australia)</option>
+                            <option value="+33">+33 (France)</option>
+                            <option value="+49">+49 (Germany)</option>
+                            <option value="+81">+81 (Japan)</option>
+                            <option value="+86">+86 (China)</option>
+                            <option value="+7">+7 (Russia)</option>
+                            <option value="+55">+55 (Brazil)</option>
+                            <option value="+34">+34 (Spain)</option>
+                            <option value="+39">+39 (Italy)</option>
+                            <option value="+82">+82 (South Korea)</option>
+                            <option value="+1">+1 (Canada)</option>
+                            <option value="+52">+52 (Mexico)</option>
+                            <option value="+31">+31 (Netherlands)</option>
+                            <option value="+32">+32 (Belgium)</option>
+                            <option value="+41">+41 (Switzerland)</option>
+                            <option value="+65">+65 (Singapore)</option>
+                            <option value="+46">+46 (Sweden)</option>
+                         </select>
+                        <input type="number" class="form-control" placeholder="Your Mobile Number" name="mobilenumber" id="mobile" required>
+                         <p id="mobile_error" class="error-message text-danger"></p>
+
+                    </div>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Your Password" id="password-field" required>
+                       <p id="password_error" class="error-message text-danger"></p>
+                </div>
+                <button type="submit" onclick="validation()">Sign Up Now</button>
+            </form>
+            <p>Already have an account? <a href="/login">Login</a></p>
+        </div>
+    </div>
+     
+    <script>
+        function validation() {
+            document.getElementById('username_error').textContent = '';
+            document.getElementById('email_error').textContent = '';
+            document.getElementById('mobile_error').textContent = '';
+            document.getElementById('password_error').textContent = '';
+    
+            let username = document.getElementById('username').value;
+            let email = document.getElementById('email').value;
+            let mobile = document.getElementById('mobile').value;
+            let password = document.getElementById('password-field').value;
+    
+            let isValid = true;
+    
+            if (username.trim() === '') {
+                document.getElementById('username_error').textContent = 'Proper Name is required';
+                isValid = false;
+            }
+            
+            if (email.trim() === '') {
+                document.getElementById('email_error').textContent = 'Proper email is required';
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                document.getElementById('email_error').textContent = 'Enter a valid email address';
+                isValid = false;
+            }
+    
+            if (mobile.length > 10 || mobile.length <= 9 || mobile.trim() === '') {
+                document.getElementById('mobile_error').textContent = 'Enter a valid mobile number';
+                isValid = false;
+            }
+    
+            if (password.length <= 5 || password.trim() === '') {
+                document.getElementById('password_error').textContent = 'Please enter at least 6 characters for the password';
+                isValid = false;
+            }
+    
+            return isValid;
+        }
+    
+        function isValidEmail(email) {
+            // Regular expression for a valid email format
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return emailPattern.test(email);
+        }
+    </script>
+    
+</body>
+</html>

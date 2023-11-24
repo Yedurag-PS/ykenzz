@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>YKENzz Football Accessories</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="/user_assets/Images/FAVICON.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="/public/css/style.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/user_assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+   
+
+    <%-include('../../partials/userheader') %>
+    <% if (cart) { %>
+
+
+    <!-- Page Header Start -->
+        <div class="container-fluid bg-secondary mb-5" style="background-image: url(/user_assets/images/cartpic.jpg);">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+                <div class="d-inline-flex">
+                    <p class="m-0"><a href="">Home</a></p>
+                    <p class="m-0 px-2">-</p>
+                    <p class="m-0">Shopping Cart</p>
+                </div>
+            </div>
+        </div> 
+    <!-- Page Header End -->
+
+    <!-- Cart Start -->
+
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+
+                 <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                            <% for(let i=0;i<cart[0].cart_items.length;i++){ %>
+                        <tr>
+                            <td class="d-flex"><img src="admin_assets/uploads/<%= cart[0].cart_items[i].product_image%>" alt="" style="width: 50px;"><%= cart[0].cart_items[i].product_name  %></td>
+                            <td class="align-middle">₹<%= cart[0].cart_items[i].product_price %></td>
+                            <td class="align-middle">
+                                <div class="input-group quantity mx-auto" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                       
+                                         <button class="btn btn-sm btn-primary btn-minus" onclick="changeQuantity(-1,'<%=cart[0].cart_items[i].product_price%>','<%= cart[0].cart_items[i].quantity*cart[0].cart_items[i].product_price%>','<%=cart[0].cart_items[i].product_id %>','<%= productdetails[i].prdctstock%>')" >
+                                        <i class="fa fa-minus"></i>
+                                        </button>
+                                       
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="<%= cart[0].cart_items[i].quantity   %>" id="count <%=cart[0].cart_items[i].product_id%>">
+                                    <div id="myContainer" class="input-group-btn">
+                                         <button class="btn btn-sm btn-primary btn-plus" onclick="changeQuantity(1,'<%=cart[0].cart_items[i].product_price%>','<%= cart[0].cart_items[i].quantity*cart[0].cart_items[i].product_price%>','<%=cart[0].cart_items[i].product_id %>','<%= productdetails[i].prdctstock%>')">
+                                            <i class="fa fa-plus"></i>
+                                        </button> 
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">₹<p id="total <%=cart[0].cart_items[i].product_id%>"><%= cart[0].cart_items[i].quantity*cart[0].cart_items[i].product_price  %></p></td>
+                            <td class="align-middle"><a href="/deletecartItem/?id=<%= cart[0].cart_items[i].product_id  %>"> <button class="btn btn-sm btn-danger" onclick="return deleteCart()"><i class="fa fa-times"></i></button></a></td>
+                        </tr>
+                        <% } %>
+                
+
+                    </tbody>
+                </table>
+             </div>
+            <div class="col-lg-4">
+                <!-- <form class="mb-5" action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary">Apply Coupon</button>
+                        </div>
+                    </div>
+                </form> -->
+                <div class="card border-secondary mb-5">
+            
+                  
+                    
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                    </div>
+
+                    
+                    <div class="card-body">
+                        <% let totalAmount = 0 %>
+                         <% let shipping = 500 %>
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <% for(let i=0;i<cart[0].cart_items.length;i++){ %>
+                                <% const item = cart[0].cart_items[i]; %>
+                                <%     totalAmount += item.quantity * item.product_price;%>
+                                <% } %>
+                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium d-flex">₹<p id="carttotal"><%= totalAmount%></p></h6>
+                            
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">₹ <%= shipping  %></h6>
+                        </div>
+                        
+                    </div>
+
+                     
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold d-flex">₹<p id="grandTotal"><%= totalAmount+shipping  %></p></h5>
+                        </div>
+                        <a href="/checkoutpage"><button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button></a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    
+    </div>
+    
+
+    <!-- Cart End -->
+
+
+    <!-- Footer Start -->
+    <% }else{ %>
+        <div class="container mb-5 " style="margin-top: 100px; margin-bottom: 200px;">
+        <div class="container" >
+           <div class="img-container d-flex justify-content-center align-items-center mt-3 ">
+             <img src="https://www.labsolutions-eg.com/resources/assets/front/images/cartempty.png" alt=""
+               class="img-fluid" width="300px" height="300px">
+           </div>
+         </div>
+         <p class="text-muted mt-5 text-center" style="margin-left: 50px;">you dont have any items in the cart...Shop Now</p>
+         <div class="no-item d-flex justify-content-center" style="margin-left: 50px;">
+           <a href="/shop"><button type="button" class="btn btn-success">Shop Now</button></a>
+          </div>
+        </div>
+        <% } %>
+        <%-include('../../partials/userfooter')  %>
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/user_assets/lib/easing/easing.min.js"></script>
+    <script src="/user_assets/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/user_assets/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/user_assets/mail/contact.js"></script>
+    <script>
+        function checked(){
+             
+Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: 'Your work has been saved',
+  showConfirmButton: false,
+  timer: 1500
+})
+        }
+    </script>
+
+    <script>
+        function changeQuantity(count,price,total,product_id,stock){
+            
+           let count1 = parseInt(document.getElementById(`count ${product_id}`).value)
+           let totalproduct =parseInt(document.getElementById(`total ${product_id}`).textContent)
+            let grandtotal = parseInt(document.getElementById('grandTotal').textContent)
+          
+           let carttotal = parseInt(document.getElementById('carttotal').textContent)
+           
+           price = parseInt(price)
+           if (count == 1 & count1 >= stock) {
+            count1 = document.getElementById(`count ${product_id}`).value = count1 + 1
+
+           }
+ 
+            if (count == 1 && count1 < stock) {
+                
+              count1 = document.getElementById(`count ${product_id}`).value = count1 + 1
+                // count1 += 1
+                document.getElementById(`total ${product_id}`).textContent = totalproduct + price
+                totalproduct += price
+                document.getElementById('carttotal').textContent = carttotal + price
+                document.getElementById('grandTotal').textContent = grandtotal + price
+                // alert (count1)
+
+
+
+            }
+            if (count == -1 && count1 != 1 ) {
+              count1 = document.getElementById(`count ${product_id}`).value = count1 - 1
+                // count1 -= 1
+                document.getElementById(`total ${product_id}`).textContent = totalproduct - price
+                totalproduct -= price
+                document.getElementById('carttotal').textContent = carttotal - price
+                document.getElementById('grandTotal').textContent = grandtotal - price
+                
+
+            }
+            
+            // alert(stock)
+            // alert(count1 )
+            if ( count == 1 && count1  > stock ) {
+             
+                count1 = document.getElementById(`count ${product_id}`).value = count1 - 1
+
+                Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Product out of Stock!!!",
+               });
+
+            }
+           
+
+         
+//  alert(count1 + 1)
+            $.ajax({
+                url : '/changeQuantity',
+                method : 'post',
+                data : {
+                    count1 : count1,
+                    totalproduct,
+                    carttotal,
+                    product_id ,
+                    
+                }
+            })
+
+        }
+    </script>
+    <script>
+        function deleteCart(){
+            Swal.fire({
+             title: "Are you sure?",
+             text: "You won't be able to revert this!",
+             icon: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#3085d6",
+             cancelButtonColor: "#d33",
+             confirmButtonText: "Yes, delete it!"
+           }).then((result) => {
+             if (result.isConfirmed) {
+               Swal.fire({
+                 title: "Deleted!",
+                 text: "Your file has been deleted.",
+                 icon: "success"
+               });
+             }
+           });
+        }
+    </script>
+    <!-- <script>
+        function deleteCart(id){
+           swal({
+         title: "Are you sure?",
+         text: "Aru you sure want to block?!",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+       })
+       .then((willDelete) => {
+         if (willDelete) {
+           location.href="/admin/adminhome/userunlisted/?page=0&id=" +id 
+         } else {
+           swal("Your imaginary file is safe!");
+         }
+       });
+        }
+       
+           </script> -->
+
+    <!-- Template Javascript -->
+    <script src="/user_assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

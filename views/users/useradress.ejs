@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YKENzz Football Accessories</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="/https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <!-- Include custom CSS -->
+    <link rel="stylesheet" href="/user_assets/css/userprofile.css">
+    <link href="/user_assets/Images/FAVICON.ico" rel="icon">
+
+</head>
+<body>
+    <%-include('../../partials/userheader') %>
+
+    <div class="container mb-4">
+        <div class="row">
+            
+            <%-include('../../partials/userprofileaside') %>
+            <% if(address) {%>
+            
+            <div class="col-lg-8 pb-5">
+                <button class="btn btn-style-1 float-right btn-primary ms-1 w-5" type="button" data-bs-toggle="modal" data-toast="" data-toast-position="topRight" data-toast-type="success"  data-bs-target="#exampleModal" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Add Address</button>
+            <div class="col-lg-9 pb-5">
+                <!-- for loooooooooooooooooooooop -->
+                 
+                <% for(let i=0 ;i<address.addresses.length;i++){ %>
+                <div class="card card-address p-3 mb-5 ">
+                    <h4 class="font-weight-semi-bold mb-4"> <%= address.addresses[i].firstname  %></h4>
+                    <h4 class="font-weight-semi-bold mb-4"><%= address.addresses[i].lastname  %></h4>
+                    <h6 class="font-weight-semi-bold mb-4"><%= address.addresses[i].mobilenumber  %></h6>
+                    <h6 class="font-weight-semi-bold mb-4"><%= address.addresses[i].pincode  %></h6>
+                    <h6 class="font-weight-semi-bold mb-4"><%= address.addresses[i].locality  %></h6>
+                    <h6 class="font-weight-semi-bold mb-4"><%= address.addresses[i].state  %></h6>
+
+
+                    <a href="#" onclick="fillModalFields('<%= address.addresses[i].firstname %>', '<%= address.addresses[i].lastname %>', '<%= address.addresses[i].mobilenumber %>', '<%= address.addresses[i].pincode %>', '<%= address.addresses[i].locality %>', '<%= address.addresses[i].state %>','<%= address.addresses[i]._id %>'); return false;">
+                      <button class="btn btn-style-1 float-right btn-primary ms-1 w-5" type="button" 
+                      data-bs-toggle="modal" data-toast="" data-toast-position="topRight" data-toast-type="success" 
+                      data-bs-target="#exampleModal1" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" 
+                      data-toast-message="Your profile updated successfully.">Update Address</button>
+                  </a>
+                  
+                   
+                  
+                  <a href="#" onclick="showRemoveAddressConfirmation('<%= address.addresses[i]._id %>'); return false;">
+                    <button class="mt-2 btn btn-danger">Remove</button>
+                </a>                  </div>
+                <% } %>
+                 
+
+                <!-- for loop end -->
+            </div>
+        </div>
+          <% }else{ %>
+            <div class="col-lg-8 pb-5">
+              <button class="btn btn-style-1 float-right btn-primary ms-1 w-5" type="button" data-bs-toggle="modal" data-toast="" data-toast-position="topRight" data-toast-type="success"  data-bs-target="#exampleModal" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Add Address</button>
+          <div class="col-lg-9 pb-5">
+            </div>
+          </div>
+        
+            <% } %>
+    </div>
+    </div>
+
+
+
+    
+ 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Add Address</h1>
+              </div>
+              <div class="modal-body">
+                  <form action="/addedaddress" method="post" onsubmit="return validateForm()">
+                      <div class="mb-3">
+                          <label for="fname" class="col-form-label">First Name:</label>
+                          <input type="text" class="form-control" id="fname" name="fname" required>
+                          <div class="error text-danger" id="fname-error"></div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="lname" class="col-form-label">Last Name:</label>
+                          <input type="text" class="form-control" id="lname" name="lname" required>
+                          <div class="error text-danger" id="lname-error"></div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="number" class="col-form-label">Mobile number:</label>
+                          <input type="text" class="form-control" id="number" name="number" required>
+                          <div class="error text-danger" id="number-error"></div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="pincode" class="col-form-label">Pincode:</label>
+                          <input type="text" class="form-control" id="pincode" name="pincode" required>
+                          <div class="error text-danger" id="pincode-error"></div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="locality" class="col-form-label">Locality:</label>
+                          <input type="text" class="form-control" id="locality" name="locality" required>
+                          <div class="error text-danger" id="locality-error"></div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="state" class="col-form-label">State:</label>
+                          <input type="text" class="form-control" id="state" name="state" required>
+                          <div class="error text-danger" id="state-error"></div>
+                      </div>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Add Address</button>
+              </div>
+          </form>
+      </div>
+  </div>
+  </div>
+  
+ 
+  
+
+
+
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5 text-success" id="exampleModalLabel">Update Address</h2>
+            </div>
+            <div class="modal-body">
+                <form action="/updatedAddress" method="post" onsubmit="return ValidateForm()">
+                    <div class="mb-3">
+                        <label for="first-name-input" class="col-form-label">First Name:</label>
+                        <input type="text" class="form-control" id="first-name-input" name="fname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="last-name-input" class="col-form-label">Last Name:</label>
+                        <input type="text" class="form-control" id="last-name-input" name="lname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="mobile-number-input" class="col-form-label">Mobile number:</label>
+                        <input type="number" class="form-control" id="mobile-number-input" name="mnumber">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pincode-input" class="col-form-label">Pincode:</label>
+                        <input type="number" class="form-control" id="pincode-input" name="pincode">
+                    </div>
+                    <div class="mb-3">
+                        <label for="locality-input" class="col-form-label">Locality:</label>
+                        <input type="text" class="form-control" id="locality-input" name="locality">
+                    </div>
+                    <div class="mb-3">
+                        <label for="state-input" class="col-form-label">State:</label>
+                        <input type="text" class="form-control" id="state-input" name="state">
+                    </div>
+                    <div class="mb-3">
+                      <label for="address-id-input" class="col-form-label">Address ID:</label>
+                      <input type="text" class="form-control" id="address-id-input" name="address_id" readonly>
+                  </div>
+ 
+             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">UPDATE</button>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+
+
+ 
+
+ 
+
+ 
+
+ 
+  
+
+ 
+    <script>
+      function validateForm() {
+          const fname = document.getElementById("fname").value.trim();
+          const lname = document.getElementById("lname").value.trim();
+          const number = document.getElementById("number").value.trim();
+          const pincode = document.getElementById("pincode").value.trim();
+          const locality = document.getElementById("locality").value.trim();
+          const state = document.getElementById("state").value.trim();
+          let valid = true;
+          
+          clearErrors(); // Clear previous error messages
+  
+          if (fname === "") {
+              displayError("fname-error", "First Name is required.");
+              valid = false;
+          }
+          if (lname === "") {
+              displayError("lname-error", "Last Name is required.");
+              valid = false;
+          }
+          if (number === "") {
+              displayError("number-error", "Mobile number is required.");
+              valid = false;
+          } else if (!/^\d{10}$/.test(number)) {
+              displayError("number-error", "Invalid mobile number format (10 digits required).");
+              valid = false;
+          }
+          if (pincode === "") {
+              displayError("pincode-error", "Pincode is required.");
+              valid = false;
+          } else if (!/^\d{6}$/.test(pincode)) {
+              displayError("pincode-error", "Invalid pincode format (6 digits required).");
+              valid = false;
+          }
+          if (locality === "") {
+              displayError("locality-error", "Locality is required.");
+              valid = false;
+          }
+          if (state === "") {
+              displayError("state-error", "State is required.");
+              valid = false;
+          }
+          if (valid) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Your form has been create account successfully.',
+            confirmButtonColor: '#28a745',
+        });
+    }
+  
+          return valid;
+      }
+  
+      function displayError(id, message) {
+          const errorDiv = document.getElementById(id);
+          errorDiv.textContent = message;
+      }
+  
+      function clearErrors() {
+          const errorDivs = document.querySelectorAll(".error");
+          errorDivs.forEach((errorDiv) => {
+              errorDiv.textContent = "";
+          });
+      }
+  </script>
+ 
+ 
+  <!-- <script>
+    function fillModalFields(firstName, lastName, mobileNumber, pincode, locality, state, addressId) {
+      document.getElementById("first-name-input").value = firstName;
+      document.getElementById("last-name-input").value = lastName;
+      document.getElementById("mobile-number-input").value = mobileNumber;
+      document.getElementById("pincode-input").value = pincode;
+      document.getElementById("locality-input").value = locality;
+      document.getElementById("state-input").value = state;
+      document.getElementById("address-id-input").value = addressId;
+    }
+    
+    function ValidateForm() {
+      var firstName = document.getElementById("first-name-input").value;
+      var lastName = document.getElementById("last-name-input").value;
+      var mobileNumber = document.getElementById("mobile-number-input").value;
+      var pincode = document.getElementById("pincode-input").value;
+      var locality = document.getElementById("locality-input").value;
+      var state = document.getElementById("state-input").value;
+    
+      // Define regular expressions for validation
+      var phoneNumberRegex = /^\d{10}$/; // Matches a 10-digit phone number
+      var pincodeRegex = /^\d{6}$/; // Matches a 6-digit postal code
+    
+      // Check for required fields
+      if (firstName === '' || lastName === '' || mobileNumber === '' || pincode === '' || locality === '' || state === '') {
+        alert('Please fill out all fields.');
+        return false; // Prevent form submission
+      }
+    
+      // Validate mobile number
+      if (!phoneNumberRegex.test(mobileNumber)) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return false; // Prevent form submission
+      }
+    
+      // Validate pincode
+      if (!pincodeRegex.test(pincode)) {
+        alert('Please enter a valid 6-digit pincode.');
+        return false; // Prevent form submission
+      }
+    
+      // If all validation passes, show a SweetAlert for success
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Your address has been updated successfully.',
+        confirmButtonColor: '#28a745',
+      });
+    
+      return true; // Allow form submission
+    } -->
+    <!-- </script> -->
+
+    <script>
+      function fillModalFields(firstName, lastName, mobileNumber, pincode, locality, state, addressId) {
+      document.getElementById("first-name-input").value = firstName;
+      document.getElementById("last-name-input").value = lastName;
+      document.getElementById("mobile-number-input").value = mobileNumber;
+      document.getElementById("pincode-input").value = pincode;
+      document.getElementById("locality-input").value = locality;
+      document.getElementById("state-input").value = state;
+      document.getElementById("address-id-input").value = addressId;
+    }
+
+
+
+    function ValidateForm() {
+    
+      var firstName = document.getElementById("first-name-input").value.trim();
+      var lastName = document.getElementById("last-name-input").value.trim();
+      var mobileNumber = document.getElementById("mobile-number-input").value.trim();
+      var pincode = document.getElementById("pincode-input").value.trim();
+      var locality = document.getElementById("locality-input").value.trim();
+      var state = document.getElementById("state-input").value.trim();
+    
+      // Define regular expressions for validation
+      var phoneNumberRegex = /^\d{10}$/; // Matches a 10-digit phone number
+      var pincodeRegex = /^\d{6}$/; // Matches a 6-digit postal code
+    
+      // Check for required fields
+      if (firstName === '' || lastName === '' || mobileNumber === '' || pincode === '' || locality === '' || state === '') {
+        // Use SweetAlert for an error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Please fill out all fields.',
+          confirmButtonColor: '#d33',
+        });
+        return false; // Prevent form submission
+      }
+    
+      // Validate mobile number
+      if (!phoneNumberRegex.test(mobileNumber)) {
+        // Use SweetAlert for an error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Please enter a valid 10-digit mobile number.',
+          confirmButtonColor: '#d33',
+        });
+        return false; // Prevent form submission
+      }
+    
+      // Validate pincode
+      if (!pincodeRegex.test(pincode)) {
+        // Use SweetAlert for an error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Please enter a valid 6-digit pincode.',
+          confirmButtonColor: '#d33',
+        });
+        return false; // Prevent form submission
+      }
+    
+      // If all validation passes, show a SweetAlert for success
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Your address has been updated successfully.',
+        confirmButtonColor: '#28a745',
+      });
+    
+      return true; // Allow form submission
+    }
+</script>    
+
+    
+     
+  
+
+
+
+      
+     
+      
+ 
+`      
+    <script>
+      function showRemoveAddressConfirmation(addressId) {
+          Swal.fire({
+              title: 'Are you sure?',
+              text: 'You will not be able to recover this address!',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, remove it!',
+              cancelButtonText: 'No, keep it',
+              reverseButtons: true,
+          }).then((result) => {
+              if (result.value) {
+                  // Redirect to the remove address URL
+                  window.location.href = '/removeadress/?id=' + addressId;
+              }
+          });
+      }
+      </script>
+      
+
+ 
+ 
+
+    <script src="/https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+
+</body>
+</html>

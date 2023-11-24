@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title> 
+    <link rel="stylesheet" href="/user_assets/css/style2.css">
+</head>
+<body>
+    <%-include('../../partials/userheader') %>
+
+    <div class="containerr mt-5 p-5">
+
+        <div class="login-container">
+
+            <h1>Enter Mobile Number</h1>
+            <form action="/verifyuser" method="POST">
+                <div class="input-container">
+                    <i class="fas fa-phone"></i>
+                     <input type="tel" name="mobilenumber" placeholder="Number"  required>
+                </div>
+            
+                <button type="submit">Confirm</button>
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

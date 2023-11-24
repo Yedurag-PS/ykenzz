@@ -1,0 +1,196 @@
+/* body .main {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+} */
+ 
+.containerr {
+    background-color:#dcf5fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 30px;
+    margin: auto;
+    width: 500px;
+}
+
+.login-container {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+i {
+    color: #888;
+    padding: 10px;
+}
+
+input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    width: 390px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+     cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 20px;
+    width: 430px;
+}
+
+button:hover {
+    background-color: #258cd1;
+}
+
+a {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+
+ /* /////////////////////////////////////////// */
+
+
+/* Reset default styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+/* Styling for the container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+/* Styling for the progress steps */
+.progresses {
+    display: flex;
+    justify-content: space-between;
+}
+
+.steps {
+    text-align: center;
+    width: 33.33%;
+}
+
+.steps i {
+    color: #27ae60;
+    font-size: 24px;
+}
+
+/* Styling for the order details */
+.order-details {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.check1 {
+    color: #27ae60;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.order-button {
+    background-color: #d9534f;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.order-button:hover {
+    background-color: #c9302c;
+}
+
+/* Styling for the delivery and revision details */
+.border-bottom {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.text-muted {
+    color: #888;
+}
+
+/* Styling for the illustration details */
+.order-details h6 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Styling for the quantity and unit price */
+.col-md-6 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Styling for the total and processing fees */
+.font-weight-bold {
+    font-weight: bold;
+}
+
+/* Styling for the total price */
+.total-price {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+ 
